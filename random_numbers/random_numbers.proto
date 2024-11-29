@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package random_numbers;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+
+message Average {
+    int32 maxNumber = 1;
+    repeated int32 value = 2;
+}
+
+
+message RandomNumbersRequest {
+    int32 maxNumber = 1;
+    repeated int32 randomNumbers = 2;
+}
+
+
+message AverageRequest {
+    google.protobuf.Timestamp startDate = 1;
+    google.protobuf.Timestamp endDate = 2;  
+    int32 limit = 3;
+    int32 offset = 4;
+}
+
+message AverageResponse {
+    repeated Average averages = 1;
+}
+
+service RandomNumbersService {
+    rpc SendRandomNumbers(RandomNumbersRequest) returns (google.protobuf.Empty);
+    rpc GetAverage(AverageRequest) returns (AverageResponse);
+}
